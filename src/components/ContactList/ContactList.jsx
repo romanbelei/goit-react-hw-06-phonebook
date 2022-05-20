@@ -1,9 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { removeContactAction } from '../../redus/actions';
 import PropTypes from 'prop-types';
 import styles from './ContactList.module.css';
 
-function ContactList({ contacts, filter, onRemoveContact }) {
-  // console.log(contacts);
+function ContactList({ contacts, filter, removeContact }) {
   return (
     <ul className={styles.contactList}>
       {contacts
@@ -16,9 +17,8 @@ function ContactList({ contacts, filter, onRemoveContact }) {
                 className={styles.buttonDelete}
                 key={contact.id}
                 name={contact.name}
-                // className={styles.btn}
                 type="button"
-                onClick={() => onRemoveContact(contact.id)}
+                onClick={() => removeContact(contact.id)}
               >
                 Delete
               </button>
@@ -30,7 +30,6 @@ function ContactList({ contacts, filter, onRemoveContact }) {
 }
 
 ContactList.propTypes = {
-  //   onRemoveContact: PropTypes.func.isRequired,
   contacts: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
@@ -40,4 +39,17 @@ ContactList.propTypes = {
   ),
 };
 
-export default ContactList;
+const mapStateProps = state => {
+  return {
+    filter: state.contacts.filter,
+    contacts: state.contacts.items,
+  };
+};
+
+const mapDispathToProps = dispath => {
+  return {
+    removeContact: contactId => dispath(removeContactAction(contactId)),
+  };
+};
+
+export default connect(mapStateProps, mapDispathToProps)(ContactList);

@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import App from './components/App.jsx';
-import store from './redux/store';
+import store from './redus/store';
 // import { filter } from './redux/actions';
 import './index.css';
 
