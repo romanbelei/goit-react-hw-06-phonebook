@@ -15,7 +15,6 @@ const reducer = (
   },
   { type, payload }
 ) => {
-  //   console.log(action);
   switch (type) {
     case 'filter': {
       return {
@@ -52,7 +51,7 @@ const reducer = (
         ...state,
         contacts: {
           ...state.contacts,
-          items: [...state.contacts.items].filter(({ id }) => id !== payload),
+          items: state.contacts.items.filter(({ id }) => id !== payload),
         },
       };
     }
@@ -64,5 +63,3 @@ const reducer = (
 const store = createStore(reducer);
 
 export default store;
-
-// return { filter: payload };
